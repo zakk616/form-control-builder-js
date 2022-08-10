@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Form Builder</title>
+  </head>
+  <body>
+    <h1>Form Control Builder</h1>
+    <div class="container">
+      <table>
+        <tr>
+          <td>
+            <select id="control-type" class="form-control">
+              <option value="Select Type">Select Type</option>
+              <option value="text">Text</option>
+              <option value="email">Email</option>
+              <option value="password">Password</option>
+              <option value="number">Number</option>
+              <option value="date">Date</option>
+              <option value="time">Time</option>
+              <option value="datetime-local">Date Time Local</option>
+              <option value="month">Month</option>
+              <option value="week">Week</option>
+              <option value="url">URL</option>
+              <option value="search">Search</option>
+              <option value="tel">Tel</option>
+              <option value="color">Color</option>
+              <option value="file">File</option>
+              <option value="range">Range</option>
+              <option value="radio">Radio</option>
+              <option value="checkbox">Checkbox</option>
+              <option value="select">Select</option>
+              <option value="textarea">Textarea</option>
+            </select>
+          </td>
+          <td>
+            <input
+              type="text"
+              class="form-control"
+              id="control-id"
+              placeholder="Enter ID"
+            />
+          </td>
+          <td>
+            <input
+              type="text"
+              class="form-control"
+              id="control-name"
+              placeholder="Enter Name"
+            />
+          </td>
+        </tr><tr>
+          <td>
+            <input
+              type="text"
+              class="form-control"
+              id="control-placeholder"
+              placeholder="Enter Placeholder"
+            />
+          </td>
+          <td>
+            <input
+              type="text"
+              class="form-control"
+              id="control-value"
+              placeholder="Enter Value"
+            />
+          </td>
+          <td>
+            <input
+              type="text"
+              class="form-control"
+              id="control-class"
+              placeholder="Enter Class"
+            />
+          </td>
+        </tr>
+      </table>
+    </div>
+    <hr />
+
+    <input class="btn btn-create" type="button" value="Create" />
+    <input class="btn btn-save" type="button" value="Save" />
+
+    <hr />
+    <h1>Controls</h1>
+    <div class="container">
+      <h3>Controls will appear here!</h3>
+      <form id="form"></form>
+    </div>
+
+    <script>
+      function createForm() {
+        var form = document.createElement("form");
+        form.setAttribute("method", "post");
+        form.setAttribute("action", "index.php");
+        form.setAttribute("id", "form");
+        document.body.appendChild(form);
+      }
+
+      var controls = [];
+
+      function addControl(control) {
+        controls.push(control);
+      }
+
+      function getControls() {
+        return controls;
+      }
+
+      function createLable() {
+        var lable = document.createElement("label");
+        lable.innerHTML = "Label";
+        addControl(lable);
+      }
+
+      function createInput() {
+        var input = document.createElement("input");
+        input.setAttribute("type", "text");
+        input.setAttribute("name", "input");
+        input.setAttribute("placeholder", "Input");
+        document.getElementById("form").appendChild(input);
+        addControl(input);
+      }
+
+      function createFileUploader() {
+        var fileUploader = document.createElement("input");
+        fileUploader.setAttribute("type", "file");
+        fileUploader.setAttribute("name", "fileUploader");
+        fileUploader.setAttribute("placeholder", "File Uploader");
+        document.getElementById("form").appendChild(input);
+        addControl(fileUploader);
+      }
+
+      function createTextArea() {
+        var textArea = document.createElement("textarea");
+        textArea.setAttribute("name", "textArea");
+        textArea.setAttribute("placeholder", "Textarea");
+        document.getElementById("form").appendChild(input);
+        addControl(textArea);
+      }
+
+      function createButton() {
+        var button = document.createElement("button");
+        button.setAttribute("type", "button");
+        button.setAttribute("name", "button");
+        document.getElementById("form").appendChild(input);
+        addControl(button);
+      }
+
+      function createCheckbox() {
+        var checkbox = document.createElement("input");
+        checkbox.setAttribute("type", "checkbox");
+        checkbox.setAttribute("name", "checkbox");
+        document.getElementById("form").appendChild(input);
+        addControl(checkbox);
+      }
+
+      function createRadio() {
+        var radio = document.createElement("input");
+        radio.setAttribute("type", "radio");
+        radio.setAttribute("name", "radio");
+        document.getElementById("form").appendChild(input);
+        addControl(radio);
+      }
+
+      function saveJson() {
+        var json = JSON.stringify(getControls());
+        var blob = new Blob([json], { type: "application/json" });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement("a");
+        a.href = url;
+        a.download = "form.json";
+        a.click();
+      }
+    </script>
+  </body>
+</html>
