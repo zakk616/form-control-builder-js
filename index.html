@@ -4,111 +4,222 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    />
     <link rel="stylesheet" href="style.css" />
     <title>Form Builder</title>
   </head>
   <body>
-    <h1>Form Control Builder</h1>
     <div class="container">
-      <table>
-        <tr>
-          <td>
-            <select id="control-type" class="form-control">
-              <option value="Select Type">Select Type</option>
-              <option value="text">Text</option>
-              <option value="email">Email</option>
-              <option value="password">Password</option>
-              <option value="number">Number</option>
-              <option value="date">Date</option>
-              <option value="time">Time</option>
-              <option value="datetime-local">Date Time Local</option>
-              <option value="month">Month</option>
-              <option value="week">Week</option>
-              <option value="url">URL</option>
-              <option value="search">Search</option>
-              <option value="tel">Tel</option>
-              <option value="color">Color</option>
-              <option value="file">File</option>
-              <option value="range">Range</option>
-              <option value="radio">Radio</option>
-              <option value="checkbox">Checkbox</option>
-              <option value="select">Select</option>
-              <option value="textarea">Textarea</option>
-            </select>
-          </td>
-          <td>
-            <input
-              type="text"
-              class="form-control"
-              id="control-id"
-              placeholder="Enter ID"
-            />
-          </td>
-          <td>
-            <input
-              type="text"
-              class="form-control"
-              id="control-name"
-              placeholder="Enter Name"
-            />
-          </td>
-        </tr><tr>
-          <td>
-            <input
-              type="text"
-              class="form-control"
-              id="control-placeholder"
-              placeholder="Enter Placeholder"
-            />
-          </td>
-          <td>
-            <input
-              type="text"
-              class="form-control"
-              id="control-value"
-              placeholder="Enter Value"
-            />
-          </td>
-          <td>
-            <input
-              type="text"
-              class="form-control"
-              id="control-class"
-              placeholder="Enter Class"
-            />
-          </td>
-        </tr>
-      </table>
+      <div class="card">
+        <div class="card-header">
+          <h3>Form Control Builder</h3>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-sm-12 col-md-4">
+              <select id="control-type" class="form-control">
+                <option value="Select Type">Select Type</option>
+                <option value="text">Text</option>
+                <option value="email">Email</option>
+                <option value="password">Password</option>
+                <option value="number">Number</option>
+                <option value="date">Date</option>
+                <option value="time">Time</option>
+                <option value="datetime-local">Date Time Local</option>
+                <option value="button">Button</option>
+                <option value="color">Color</option>
+                <option value="file">File</option>
+                <option value="range">Range</option>
+                <option value="textarea">Textarea</option>
+              </select>
+            </div>
+            <div class="col-sm-12 col-md-4">
+              <input
+                type="text"
+                class="form-control"
+                id="control-id"
+                placeholder="Enter ID"
+              />
+            </div>
+            <div class="col-sm-12 col-md-4">
+              <input
+                type="text"
+                class="form-control"
+                id="control-name"
+                placeholder="Enter Name"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12 col-md-4">
+              <input
+                type="text"
+                class="form-control"
+                id="control-placeholder"
+                placeholder="Enter Placeholder"
+              />
+            </div>
+            <div class="col-sm-12 col-md-4">
+              <input
+                type="text"
+                class="form-control"
+                id="control-value"
+                placeholder="Enter Value"
+              />
+            </div>
+            <div class="col-sm-12 col-md-4">
+              <input
+                type="text"
+                class="form-control"
+                id="control-class"
+                placeholder="Enter Class"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12 col-md-12">
+              <textarea
+                class="form-control"
+                id="txtScript"
+                rows="10"
+              ></textarea>
+            </div>
+          </div>
+
+          <input
+            class="btn btn-create"
+            type="button"
+            value="Create"
+            onClick="createControl();"
+          />
+        </div>
+      </div>
     </div>
-    <hr />
+    <br />
 
-    <input class="btn btn-create" type="button" value="Create" />
-    <input class="btn btn-save" type="button" value="Save" />
-
-    <hr />
-    <h1>Controls</h1>
     <div class="container">
-      <h3>Controls will appear here!</h3>
-      <form id="form"></form>
+      <div class="card">
+        <div class="card-header">
+          <h3>Controls</h3>
+        </div>
+        <div class="card-body">
+          <h3 class="container-heading" id="lbl-control-heading">Controls will appear here!</h3>
+          <div id="form-container"></div>
+        </div>
+      </div>
+      <input
+        class="btn btn-save"
+        type="button"
+        value="Save JSON File"
+        onclick="saveJson();"
+      />
     </div>
 
     <script>
+      var control;
+
+      (function () {
+        createForm();
+      })();
+
       function createForm() {
         var form = document.createElement("form");
         form.setAttribute("method", "post");
         form.setAttribute("action", "index.php");
         form.setAttribute("id", "form");
-        document.body.appendChild(form);
+        document.getElementById("form-container").appendChild(form);
+      }
+
+      function createControl() {
+        if (document.getElementById("control-type").value == "Select Type") {
+          alert("Please select a type");
+          return;
+        } else if (document.getElementById("control-id").value == "") {
+          alert("Please enter an ID");
+          return;
+        } else if (document.getElementById("control-name").value == "") {
+          alert("Please enter a name");
+          return;
+        } else if (document.getElementById("control-placeholder").value == "") {
+          alert("Please enter a placeholder");
+          return;
+        } else if (document.getElementById("control-class").value == "") {
+          alert("Please enter a class");
+          return;
+        } else {
+          var controlType = document.getElementById("control-type").value;
+          var controlId = document.getElementById("control-id").value;
+          var controlName = document.getElementById("control-name").value;
+          var controlPlaceholder = document.getElementById(
+            "control-placeholder"
+          ).value;
+          var controlValue = document.getElementById("control-value").value;
+          var controlClass = document.getElementById("control-class").value;
+          if (controlType == "textarea") {
+            control = document.createElement("textarea");
+          } else {
+            control = document.createElement("input");
+          }
+
+          control.setAttribute("type", controlType);
+          control.setAttribute("id", controlId);
+          control.setAttribute("name", controlName);
+          control.setAttribute("placeholder", controlPlaceholder);
+          control.setAttribute("value", controlValue);
+          control.setAttribute("class", controlClass);
+          console.log(control);
+          addControl({
+            type: controlType,
+            id: controlId,
+            name: controlName,
+            placeholder: controlPlaceholder,
+            value: controlValue,
+            class: controlClass,
+          });
+
+          document.getElementById("form").appendChild(control);
+
+          if (document.getElementById("txtScript").value != "") {
+            var code = document.getElementById("txtScript").value;
+            var script = document.createElement("script");
+            script.setAttribute("type", "text/javascript");
+            script.innerHTML = code;
+            document.body.appendChild(script);
+            addScript(code);
+          }
+        }
+
+        //empty fields
+        document.getElementById("control-type").value = "Select Type";
+        document.getElementById("control-id").value = "";
+        document.getElementById("control-name").value = "";
+        document.getElementById("control-placeholder").value = "";
+        document.getElementById("control-value").value = "";
+        document.getElementById("control-class").value = "";
+        document.getElementById("txtScript").value = "";
+        document.getElementById("control-type").focus();
+        document.getElementById("lbl-control-heading").innerHTML = "";
       }
 
       var controls = [];
-
+      var scripts = [];
       function addControl(control) {
         controls.push(control);
       }
 
+      function addScript(code) {
+        scripts.push(code);
+      }
+
       function getControls() {
         return controls;
+      }
+
+      function getScripts() {
+        return scripts;
       }
 
       function createLable() {
@@ -151,30 +262,23 @@
         addControl(button);
       }
 
-      function createCheckbox() {
-        var checkbox = document.createElement("input");
-        checkbox.setAttribute("type", "checkbox");
-        checkbox.setAttribute("name", "checkbox");
-        document.getElementById("form").appendChild(input);
-        addControl(checkbox);
-      }
-
-      function createRadio() {
-        var radio = document.createElement("input");
-        radio.setAttribute("type", "radio");
-        radio.setAttribute("name", "radio");
-        document.getElementById("form").appendChild(input);
-        addControl(radio);
-      }
-
       function saveJson() {
-        var json = JSON.stringify(getControls());
-        var blob = new Blob([json], { type: "application/json" });
-        var url = URL.createObjectURL(blob);
-        var a = document.createElement("a");
-        a.href = url;
-        a.download = "form.json";
-        a.click();
+        if (getControls().length > 0) {
+          var obj = {};
+          obj.controls = getControls();
+          if (getScripts().length > 0) {
+            obj.scripts = getScripts();
+          }
+          var json = JSON.stringify(obj);
+          var blob = new Blob([json], { type: "application/json" });
+          var url = URL.createObjectURL(blob);
+          var a = document.createElement("a");
+          a.href = url;
+          a.download = "form.json";
+          a.click();
+        } else {
+          alert("No controls to save");
+        }
       }
     </script>
   </body>

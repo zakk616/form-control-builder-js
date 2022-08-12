@@ -1,0 +1,1 @@
+[{"type":"text","id":"username","name":"username","placeholder":"Enter user name","value":"","class":"form-control"},{"type":"password","id":"pass","name":"pass","placeholder":"enter password","value":"","class":"form-control"},{"type":"button","id":"btnsave","name":"btnsave","placeholder":"-","value":"Save","class":"btn btn-save"}]

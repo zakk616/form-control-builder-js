@@ -22,12 +22,11 @@ button {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
-.btn:hover{
-    background-color: gray;
-    color: white;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+.btn:hover {
+  background-color: gray;
+  color: white;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
-
 
 .btn-create {
   background-color: darkorange;
@@ -35,12 +34,14 @@ button {
 
 .btn-save {
   background-color: olivedrab;
+  float: right;
 }
 
 .form-control {
   display: block;
-  width: 90%;
+  /* width: 90%; */
   padding: 6px 12px;
+  margin: 2px;
   font-size: 14px;
   line-height: 1.42857143;
   color: #555;
@@ -63,17 +64,25 @@ button {
 }
 
 .container {
-  width: 90%;
-  height: auto;
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;
+  text-align: center;
   border: #555 solid 1px;
   border-radius: 3px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
-table{
-    width: 100%;
+.card-body h3{
+  color: lightgray;
+}
+
+#form-container {
+  margin: auto;
+  width: 50%;
+}
+
+table {
+  width: 100%;
+}
+
+.card {
+  margin: 25px 25px 25px 25px;
 }
