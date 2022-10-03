@@ -1,4 +1,6 @@
 var control;
+var controls = [];
+var scripts = [];
 
 (function () {
   createForm();
@@ -22,9 +24,6 @@ function createControl() {
   } else if (document.getElementById("control-name").value == "") {
     alert("Please enter a name");
     return;
-  } else if (document.getElementById("control-placeholder").value == "") {
-    alert("Please enter a placeholder");
-    return;
   } else if (document.getElementById("control-class").value == "") {
     alert("Please enter a class");
     return;
@@ -36,7 +35,13 @@ function createControl() {
       "control-placeholder"
     ).value;
     var controlValue = document.getElementById("control-value").value;
-    var controlClass = document.getElementById("control-class").value;
+    var controlClass = "";
+    var classdata = $("#control-class").select2("data");
+
+    for (let index = 0; index < classdata.length; index++) {
+      controlClass = controlClass + " " + classdata[index].text;
+    }
+
     if (controlType == "textarea") {
       control = document.createElement("textarea");
     } else {
@@ -49,7 +54,7 @@ function createControl() {
     control.setAttribute("placeholder", controlPlaceholder);
     control.setAttribute("value", controlValue);
     control.setAttribute("class", controlClass);
-    console.log(control);
+
     addControl({
       type: controlType,
       id: controlId,
@@ -71,20 +76,9 @@ function createControl() {
     }
   }
 
-  //empty fields
-  document.getElementById("control-type").value = "Select Type";
-  document.getElementById("control-id").value = "";
-  document.getElementById("control-name").value = "";
-  document.getElementById("control-placeholder").value = "";
-  document.getElementById("control-value").value = "";
-  document.getElementById("control-class").value = "";
-  document.getElementById("txtScript").value = "";
-  document.getElementById("control-type").focus();
-  document.getElementById("lbl-control-heading").innerHTML = "";
+  emptyFields();
 }
 
-var controls = [];
-var scripts = [];
 function addControl(control) {
   controls.push(control);
 }
@@ -141,6 +135,18 @@ function createButton() {
   addControl(button);
 }
 
+function emptyFields() {
+  document.getElementById("control-type").value = "Select Type";
+  document.getElementById("control-id").value = "";
+  document.getElementById("control-name").value = "";
+  document.getElementById("control-placeholder").value = "";
+  document.getElementById("control-value").value = "";
+  $("#control-class").select2("val", "");
+  document.getElementById("txtScript").value = "";
+  document.getElementById("control-type").focus();
+  document.getElementById("lbl-control-heading").innerHTML = "";
+}
+
 function saveJson() {
   if (getControls().length > 0) {
     var obj = {};
@@ -159,3 +165,23 @@ function saveJson() {
     alert("No controls to save");
   }
 }
+
+function format(state) {
+  if (!state.id) return state.text; // optgroup
+  return state.text;
+}
+
+$("#control-class").select2({
+  placeholder: "Select Bootstrap Classes",
+  matcher: function (term, text, opt) {
+    var matcher = opt.parent("select").select2.defaults.matcher;
+    return (
+      matcher(term, text) ||
+      (opt.parent("optgroup").length &&
+        matcher(term, opt.parent("optgroup").attr("label")))
+    );
+  },
+});
+
+var scriptBox = document.getElementById("txtScript");
+scriptBox.placeholder = scriptBox.placeholder.replace(/\\n/g, "\n");
